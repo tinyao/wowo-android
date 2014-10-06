@@ -17,16 +17,15 @@
             makerman:mutate_background="true"
             android:id="@+id/wowo_photo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="240dp"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            android:minHeight="200dp" />
+            android:scaleType="centerCrop" />
 
         <View
             android:id="@+id/wowo_photo_mask"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="240dp"
             android:layout_alignBottom="@id/wowo_photo"
             android:background="@drawable/card_gradient_bg"/>
 
@@ -120,13 +119,14 @@
         android:id="@+id/wowo_content_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/card_meta_layout"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:lineSpacingExtra="3sp"
+        android:gravity="center"
         android:text="我暑假两个月从西安穷游到大理, 有什么想问的"
         android:textColor="#fff"
+        android:paddingBottom="5dp"
         android:textSize="22sp" />
 
     <ViewStub
@@ -135,7 +135,6 @@
         android:layout_height="fill_parent"
         android:visibility="invisible"
         android:layout="@layout/mask_guidance" />
-
 
 
 </RelativeLayout>

@@ -35,25 +35,66 @@ public class WowoApi {
      */
     public static void latestWowo(Category mCategory, FindCallback<Wowo> mCallback, boolean fromCache) {
 
-        AVQuery<Wowo> query = new AVQuery<Wowo>("Wowo");
-        if (mCategory.ordinal() != 0)
-            query.whereEqualTo("category", mCategory.ordinal());
-        query.orderByDescending("createdAt");
-        query.setLimit(20);
-        query.findInBackground(mCallback);
+//        AVQuery<Wowo> notNearby = AVQuery.getQuery("Wowo");
+//        lotsOfWins.whereGreaterThan("score", 150);
+//
+//        AVQuery<AVObject> fewWins = AVQuery.getQuery("Player");
+//        fewWins.whereLessThan("score", 5);
+//
+//        List<AVQuery<AVObject>> queries = new ArrayList<AVQuery<AVObject>>();
+//        queries.add(lotsOfWins);
+//        queries.add(fewWins);
+//
+//        AVQuery<AVObject> mainQuery = AVQuery.or(queries);
 
-//        AVQuery<Wowo> query = AVQuery.getQuery("Wowo");
-////        if (fromCache) {
-////            query.setCachePolicy(AVQuery.CachePolicy.CACHE_ELSE_NETWORK);
-////        } else {
-////            query.setCachePolicy(AVQuery.CachePolicy.NETWORK_ONLY);
-////        }
-//        query.orderByDescending("createdAt");
-////        if (endAma != null) {
-////            query.whereGreaterThan("objectId", endAma.getObjectId());
-////        }
-//        query.setLimit(20);
-//        query.findInBackground(mCallback);
+
+        AVQuery<Wowo> mainQuery = null;
+
+        if (mCategory == Category.nearby) { //  附近
+            mainQuery = new AVQuery<Wowo>("Wowo");
+            AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
+            mainQuery.whereWithinKilometers("location", centerPoint, 10);
+        } else {
+            // 非仅对附近可见
+            AVQuery<Wowo> notOnlyNearby = AVQuery.getQuery("Wowo");
+            notOnlyNearby.whereEqualTo("nearbyOnly", false);
+            // 附近的
+//            AVQuery<Wowo> nearbyQuery = AVQuery.getQuery("Wowo");
+//            AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
+//            nearbyQuery.whereWithinKilometers("location", centerPoint, 10);
+
+            List<AVQuery<Wowo>> queries = new ArrayList<AVQuery<Wowo>>();
+            queries.add(notOnlyNearby);
+//            queries.add(nearbyQuery);
+
+            mainQuery = AVQuery.or(queries);
+//            mainQuery = new AVQuery<Wowo>("Wowo");
+//            mainQuery.whereEqualTo("nearbyOnly", false);
+
+            if (mCategory.ordinal() != 0) { // 非全部
+                mainQuery.whereEqualTo("category", mCategory.ordinal());
+            }
+        }
+
+//        if (mCategory.ordinal() != 0) {
+//            if (mCategory == Category.nearby) { //  附近
+//                AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
+//                mainQuery.whereWithinKilometers("location", centerPoint, 10);
+//            } else {    // 分类
+//                mainQuery.whereEqualTo("category", mCategory.ordinal());
+//            }
+//        } else {
+//            // 非仅对附近可见 或者 在附近
+//            AVQuery<Wowo> notOnlyNearby = AVQuery.getQuery("Wowo");
+//            notOnlyNearby.whereGreaterThan("nearbyOnly", false);
+//
+//            AVQuery<AVObject> fewWins = AVQuery.getQuery("Player");
+//            fewWins.whereLessThan("score", 5);
+//
+//        }
+        mainQuery.orderByDescending("createdAt");
+        mainQuery.setLimit(20);
+        mainQuery.findInBackground(mCallback);
     }
 
     public static void logIn() {
@@ -72,18 +113,58 @@ public class WowoApi {
      * @param mCallback
      */
     public static void nextWowo(Wowo startWowo, Category mCategory, FindCallback<Wowo> mCallback) {
-        AVQuery<Wowo> query = AVQuery.getQuery("Wowo");
-        if (mCategory.ordinal() != 0)
-            query.whereEqualTo("category", mCategory.ordinal());
-        query.orderByDescending("createdAt");
-        query.whereLessThan("objectId", startWowo.getObjectId());
-        query.setLimit(20);
-        query.findInBackground(mCallback);
+
+
+        AVQuery<Wowo> mainQuery = null;
+
+        if (mCategory == Category.nearby) { //  附近
+            mainQuery = new AVQuery<Wowo>("Wowo");
+            AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
+            mainQuery.whereWithinKilometers("location", centerPoint, 10);
+        } else {
+            // 非仅对附近可见
+            AVQuery<Wowo> notOnlyNearby = AVQuery.getQuery("Wowo");
+            notOnlyNearby.whereEqualTo("nearbyOnly", false);
+            // 附近的
+//            AVQuery<Wowo> nearbyQuery = AVQuery.getQuery("Wowo");
+//            AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
+//            nearbyQuery.whereWithinKilometers("location", centerPoint, 10);
+
+            List<AVQuery<Wowo>> queries = new ArrayList<AVQuery<Wowo>>();
+            queries.add(notOnlyNearby);
+//            queries.add(nearbyQuery);
+
+            mainQuery = AVQuery.or(queries);
+//
+//            mainQuery = new AVQuery<Wowo>("Wowo");
+//            mainQuery.whereEqualTo("nearbyOnly", false);
+
+            if (mCategory.ordinal() != 0) { // 非全部
+                mainQuery.whereEqualTo("category", mCategory.ordinal());
+            }
+        }
+
+//        AVQuery<Wowo> query = AVQuery.getQuery("Wowo");
+//        if (mCategory.ordinal() != 0) {
+//            if (mCategory == Category.nearby) { //  附近
+//                AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
+//                query.whereWithinKilometers("location", centerPoint, 10);
+//            } else {    // 分类
+//                query.whereEqualTo("category", mCategory.ordinal());
+//            }
+//        } else {
+//
+//        }
+        mainQuery.orderByDescending("createdAt");
+        mainQuery.whereLessThan("objectId", startWowo.getObjectId());
+        mainQuery.setLimit(20);
+        mainQuery.findInBackground(mCallback);
     }
 
-    public static void publishAma(String text, String imagePath,
-                                  double latitude, double longtitue,
-                                  final SaveCallback mSaveCallback) {
+    public static void publishWowo(String text, String imagePath,
+                                   String body, int categoryId,
+                                   double latitude, double longtitue,
+                                   final SaveCallback mSaveCallback) {
         final Wowo wowo = new Wowo();
         AVUser currentUser = AVUser.getCurrentUser();
         wowo.setAuthor(currentUser);
@@ -249,13 +330,11 @@ public class WowoApi {
     }
 
 
-
 //    public static void likeComment(FindCallback<Wowo> callback) {
 //        AVUser currentUser = AVUser.getCurrentUser();
 //        AVRelation<Wowo> relation = currentUser.getRelation("likes");
 //        relation.getQuery().findInBackground(callback);
 //    }
-
 
 
 }

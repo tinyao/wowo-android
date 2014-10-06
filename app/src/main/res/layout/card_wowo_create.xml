@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/wowo_photo_lay"
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <ImageView
+            android:id="@+id/wowo_create_photo"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:maxHeight="240dp"
+            android:background="@color/action_bar_color"
+            android:scaleType="centerCrop"/>
+
+        <View
+            android:id="@+id/wowo_photo_mask"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:visibility="gone"
+            android:layout_alignBottom="@id/wowo_photo"
+            android:background="#77000000" />
+
+        <EditText
+            android:id="@+id/wowo_create_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="我啥啥啥..."
+            android:lineSpacingExtra="3sp"
+            android:maxLines="4"
+            android:paddingBottom="5dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/wowo_create_title_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wowo_create_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="15dp"
+            android:text="有什么想问的 ?"
+            android:textColor="#eee"
+            android:textSize="22sp" />
+
+        <CheckBox
+            android:id="@+id/color_opt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:visibility="gone"
+            android:button="@drawable/add_colorbg_light_selector"
+            android:checked="false"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/image_opt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/add_photo_selector"
+            android:checked="false"
+            android:clickable="true" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/wowo_create_body_edt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_alignParentBottom="true"
+        android:background="@null"
+        android:gravity="top"
+        android:minLines="5"
+        android:hint="具体写点什么吧" />
+
+
+    <include layout="@layout/divider_view"/>
+
+    <RelativeLayout
+        android:id="@+id/wowo_create_option_category"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_below="@id/wowo_photo_lay">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_vote_normal"
+            android:scaleType="centerInside"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center_vertical"
+            android:text="选择分类"/>
+
+        <TextView
+            android:id="@+id/wowo_create_category_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:text="未分类"/>
+
+    </RelativeLayout>
+
+
+    <include layout="@layout/divider_view"/>
+
+    <RelativeLayout
+        android:id="@+id/wowo_create_option_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_below="@id/wowo_photo_lay">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_vote_normal"
+            android:scaleType="centerInside"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center_vertical"
+            android:text="仅附近可见"/>
+
+        <CheckBox
+            android:id="@+id/wowo_create_nearby_only_check"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"/>
+
+    </RelativeLayout>
+
+    <include layout="@layout/divider_view"/>
+
+
+
+
+</LinearLayout>
+
+</ScrollView>

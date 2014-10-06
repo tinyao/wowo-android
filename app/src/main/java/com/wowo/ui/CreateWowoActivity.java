@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,39 +26,45 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.SaveCallback;
 import com.wowo.R;
+import com.wowo.WoApplication;
 import com.wowo.adapter.GridViewPagerAdapter;
 import com.wowo.api.WowoApi;
+import com.wowo.model.Category;
 
 import org.goodev.helpviewpager.CirclePageIndicator;
 import org.goodev.helpviewpager.PageIndicator;
 
 import java.util.Random;
 
-public class CreateWowoActivity extends Activity implements GridViewPagerAdapter.OnTemplateSelectedListener {
+public class CreateWowoActivity extends Activity implements
+        GridViewPagerAdapter.OnTemplateSelectedListener, View.OnClickListener{
 
-    private ImageView imgBg;
     private EditText titleView;
-    private TextView meTv, askTv;
-    private ImageView imgOpt;
-    private CheckBox colorOpt;
+    private View categoryView, visScopeView;
+    private EditText bodyEdtV;
+    private ImageView photoView;
+    private View coverPanel;
     private TypedArray templateList;
-    private View templatePanel;
+    private TextView categoryTv, titleAskTv;
+    private CheckBox neabyOnlyCheck;
+
+    private Category mCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_create_ama);
+        setContentView(R.layout.card_wowo_create);
+        getActionBar().setDisplayShowTitleEnabled(false);
 
-        imgBg = (ImageView) findViewById(R.id.ama_image);
-        titleView = (EditText) findViewById(R.id.ama_content_title);
-        meTv = (TextView) findViewById(R.id.ama_content_me);
-        askTv = (TextView) findViewById(R.id.ama_content_ask);
-        imgOpt = (ImageView) findViewById(R.id.image_opt);
-        colorOpt = (CheckBox) findViewById(R.id.color_opt);
-        templatePanel = findViewById(R.id.template_panel);
-
-        templateList = getResources().obtainTypedArray(R.array.templates_l);
+        photoView = (ImageView) findViewById(R.id.wowo_create_photo);
+        titleView = (EditText) findViewById(R.id.wowo_create_title);
+        titleAskTv = (TextView) findViewById(R.id.wowo_create_title_end);
+        coverPanel = findViewById(R.id.wowo_photo_lay);
+        categoryView = findViewById(R.id.wowo_create_option_category);
+        visScopeView = findViewById(R.id.wowo_create_option_visibility);
+        categoryTv = (TextView)findViewById(R.id.wowo_create_category_txt);
+        neabyOnlyCheck = (CheckBox) findViewById(R.id.wowo_create_nearby_only_check);
 
         titleView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -80,37 +87,52 @@ public class CreateWowoActivity extends Activity implements GridViewPagerAdapter
             }
         });
 
-        colorOpt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                templatePanel.setVisibility(b ? View.VISIBLE : View.GONE);
-            }
-        });
-
-        imgOpt.setOnClickListener(new View.OnClickListener() {
-
+        coverPanel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-
-                // Filter to only show results that can be "opened", such as a
-                // file (as opposed to a list of contacts or timezones)
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-
-                // Filter to show only images, using the image MIME data type.
-                // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
-                // To search for all documents available via installed storage providers,
-                // it would be "*/*".
-                intent.setType("image/*");
-                intent.putExtra("crop", "true");
-                startActivityForResult(intent, PICK_IMAGE);
+                Log.d("DEBUG", "cover panel click");
             }
         });
+
+
+        templateList = getResources().obtainTypedArray(R.array.colors_l);
+
+        photoView.setBackgroundResource(WoApplication.getColors().getResourceId(new Random().nextInt(12), R.color.action_bar_color));
+
+        categoryView.setOnClickListener(this);
+        visScopeView.setOnClickListener(this);
+
+//        colorOpt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                templatePanel.setVisibility(b ? View.VISIBLE : View.GONE);
+//            }
+//        });
+//
+//        imgOpt.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//
+//                // Filter to only show results that can be "opened", such as a
+//                // file (as opposed to a list of contacts or timezones)
+//                intent.addCategory(Intent.CATEGORY_OPENABLE);
+//
+//                // Filter to show only images, using the image MIME data type.
+//                // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
+//                // To search for all documents available via installed storage providers,
+//                // it would be "*/*".
+//                intent.setType("image/*");
+//                intent.putExtra("crop", "true");
+//                startActivityForResult(intent, PICK_IMAGE);
+//            }
+//        });
 
         loadTemplates();
     }
 
-    private static final int PICK_IMAGE = 100;
+    private static final int PICK_IMAGE = 102;
 
     @Override
     protected void onResume() {
@@ -157,13 +179,20 @@ public class CreateWowoActivity extends Activity implements GridViewPagerAdapter
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_publish) {
-            createAMA("我" + titleView.getText().toString() + "，你们有什么想问的");
+            createWowo();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
-    private void createAMA(String title) {
+    private void createWowo() {
+        String title = titleView.getText() + "\n" + titleAskTv.getText();
+        String body = bodyEdtV.getText().toString();
+        int mCategoryId = mCategory.ordinal();
+        int color = 5;
+
+//        WowoApi.publishAma();
 
 //        WowoApi.publishAma(title, currentIndex, "cover.jpg", 0, 0, new SaveCallback() {
 //
@@ -185,52 +214,58 @@ public class CreateWowoActivity extends Activity implements GridViewPagerAdapter
     @Override
     public synchronized void OnTemplateSeleted(int index) {
 
-        if (index == 0) {
-            imgOpt.setImageResource(R.drawable.add_photo_light_selector);
-            colorOpt.setButtonDrawable(R.drawable.add_colorbg_light_selector);
-            titleView.setTextColor(getResources().getColor(R.color.text_dark));
-            titleView.setHintTextColor(getResources().getColor(R.color.text_dark_hint));
-            meTv.setTextColor(getResources().getColor(R.color.text_dark));
-            askTv.setTextColor(getResources().getColor(R.color.text_dark));
-        } else {
-            if (currentIndex == 0) {
-                imgOpt.setImageResource(R.drawable.add_photo_selector);
-                colorOpt.setButtonDrawable(R.drawable.add_colorbg_selector);
-                titleView.setTextColor(getResources().getColor(R.color.text_light));
-                titleView.setHintTextColor(getResources().getColor(R.color.text_light_hint));
-                meTv.setTextColor(getResources().getColor(R.color.text_light));
-                askTv.setTextColor(getResources().getColor(R.color.text_light));
-            }
-        }
+//        if (index == 0) {
+//            imgOpt.setImageResource(R.drawable.add_photo_light_selector);
+//            colorOpt.setButtonDrawable(R.drawable.add_colorbg_light_selector);
+//            titleView.setTextColor(getResources().getColor(R.color.text_dark));
+//            titleView.setHintTextColor(getResources().getColor(R.color.text_dark_hint));
+//            meTv.setTextColor(getResources().getColor(R.color.text_dark));
+//            askTv.setTextColor(getResources().getColor(R.color.text_dark));
+//        } else {
+//            if (currentIndex == 0) {
+//                imgOpt.setImageResource(R.drawable.add_photo_selector);
+//                colorOpt.setButtonDrawable(R.drawable.add_colorbg_selector);
+//                titleView.setTextColor(getResources().getColor(R.color.text_light));
+//                titleView.setHintTextColor(getResources().getColor(R.color.text_light_hint));
+//                meTv.setTextColor(getResources().getColor(R.color.text_light));
+//                askTv.setTextColor(getResources().getColor(R.color.text_light));
+//            }
+//        }
 
-        Drawable mBg = templateList.getDrawable(index);
-        imgBg.setImageDrawable(mBg);
+//        Drawable mBg = templateList.getDrawable(index);
+//        imgBg.setImageDrawable(mBg);
 
         currentIndex = index;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
-            // The document selected by the user won't be returned in the intent.
-            // Instead, a URI to that document will be contained in the return intent
-            // provided to this method as a parameter.
-            // Pull that URI using resultData.getData().
-            Uri uri = null;
-            if (resultData != null) {
-                uri = resultData.getData();
-                Log.i("DEBUG", "Uri: " + uri.toString());
-                imgBg.setImageURI(uri);
-//                String path = getPath(uri);
-//
-//                byte[] decodedString = Base64.decode(person_object.getPhoto(),Base64.NO_WRAP);
-//                InputStream inputStream  = new ByteArrayInputStream(decodedString);
-//                Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
-//                user_image.setImageBitmap(bitmap);
-//
-//                Bitmap bm = BitmapFactory.decodeFile(path);
-            }
+//        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+//            // The document selected by the user won't be returned in the intent.
+//            // Instead, a URI to that document will be contained in the return intent
+//            // provided to this method as a parameter.
+//            // Pull that URI using resultData.getData().
+//            Uri uri = null;
+//            if (resultData != null) {
+//                uri = resultData.getData();
+//                Log.i("DEBUG", "Uri: " + uri.toString());
+////                imgBg.setImageURI(uri);
+////                String path = getPath(uri);
+////
+////                byte[] decodedString = Base64.decode(person_object.getPhoto(),Base64.NO_WRAP);
+////                InputStream inputStream  = new ByteArrayInputStream(decodedString);
+////                Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
+////                user_image.setImageBitmap(bitmap);
+////
+////                Bitmap bm = BitmapFactory.decodeFile(path);
+//            }
+//        }
+
+        if (requestCode == REQUEST_CATEGORY && resultCode == RESULT_OK) {
+            mCategory = Category.values()[resultData.getIntExtra("category_id", Category.others.ordinal()-2) + 2];
+            categoryTv.setText(mCategory.getDisplayName());
         }
+
         super.onActivityResult(requestCode, resultCode, resultData);
     }
 
@@ -255,6 +290,21 @@ public class CreateWowoActivity extends Activity implements GridViewPagerAdapter
         }
         // this is our fallback here
         return uri.getPath();
+    }
+
+
+    private final static int REQUEST_CATEGORY = 100;
+    private final static int REQUEST_SCOPE = 101;
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.wowo_create_option_category:
+                startActivityForResult(new Intent(this, CategoryActivity.class), REQUEST_CATEGORY);
+                break;
+        }
+
     }
 
 //    public static class AskTextAdapter extends PagerAdapter {

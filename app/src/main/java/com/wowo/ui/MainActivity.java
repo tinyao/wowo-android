@@ -154,6 +154,11 @@ public class MainActivity extends BaseActivity implements WowosFragment.OnFragme
             return true;
         }
         switch (item.getItemId()) {
+            case R.id.action_new_wowo:
+                startActivity(new Intent(this, CreateWowoActivity.class));
+                return true;
+            case R.id.action_notification:
+                return true;
             case R.id.action_settings:
                 return true;
             default:
@@ -172,6 +177,7 @@ public class MainActivity extends BaseActivity implements WowosFragment.OnFragme
 
         mPullToRefreshAttacher.setRefreshing(false);
         mCategory = category;
+
         mContentFragment = WowosFragment.newInstance(category);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, mContentFragment).commit();

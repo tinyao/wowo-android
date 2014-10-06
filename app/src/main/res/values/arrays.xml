@@ -111,6 +111,21 @@
         <item>你们有什么想问的</item>
     </string-array>
 
+    <string-array name="category">
+
+        <item>生活</item>
+        <item>娱乐</item>
+        <item>科技</item>
+        <item>旅行</item>
+        <item>职业</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="visibility">
+        <item>全部可见</item>
+        <item>仅附近可见</item>
+    </string-array>
+
 
 
 </resources>
