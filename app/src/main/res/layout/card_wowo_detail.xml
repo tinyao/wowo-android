@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/wowo_photo_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/wowo_photo_mask"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignBottom="@id/wowo_photo"
+            android:background="@drawable/card_gradient_bg"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/card_meta_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/wowo_photo_lay"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/wowo_meta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="3dp"
+            android:text="旅行, 9小时前"
+            android:textColor="#ccc" />
+
+        <CheckBox
+            android:id="@+id/wowo_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/ic_vote_up_check"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:focusable="false"
+            android:text="124"
+            android:textSize="12sp"
+            android:paddingLeft="5dp"
+            android:textColor="@color/like_color_selector"
+            android:layout_centerVertical="true"
+            android:focusableInTouchMode="false" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/wowo_content_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/card_meta_layout"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:lineSpacingExtra="3sp"
+        android:text="我暑假两个月从西安穷游到大理, 有什么想问的"
+        android:textColor="#fff"
+        android:textSize="22sp" />
+
+    <ViewStub
+        android:id="@+id/stub"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="invisible"
+        android:layout="@layout/mask_guidance" />
+
+</RelativeLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="main" >
+        <source path="/Users/tinyao/Workspace/Android/StudioProject/Wowo/extras/FadingActionBarLib/res" >
+            <file
+                name="fab__gradient"
+                path="/Users/tinyao/Workspace/Android/StudioProject/Wowo/extras/FadingActionBarLib/res/drawable/fab__gradient.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="fab__gradient_light"
+                path="/Users/tinyao/Workspace/Android/StudioProject/Wowo/extras/FadingActionBarLib/res/drawable/fab__gradient_light.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="fab__header_container"
+                path="/Users/tinyao/Workspace/Android/StudioProject/Wowo/extras/FadingActionBarLib/res/layout/fab__header_container.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fab__listview_container"
+                path="/Users/tinyao/Workspace/Android/StudioProject/Wowo/extras/FadingActionBarLib/res/layout/fab__listview_container.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fab__scrollview_container"
+                path="/Users/tinyao/Workspace/Android/StudioProject/Wowo/extras/FadingActionBarLib/res/layout/fab__scrollview_container.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fab__webview_container"
+                path="/Users/tinyao/Workspace/Android/StudioProject/Wowo/extras/FadingActionBarLib/res/layout/fab__webview_container.xml"
+                qualifiers=""
+                type="layout" />
+        </source>
+        <source path="/Users/tinyao/Workspace/Android/StudioProject/Wowo/extras/FadingActionBarLib/build/generated/res/rs/release" />
+        <source path="/Users/tinyao/Workspace/Android/StudioProject/Wowo/extras/FadingActionBarLib/build/generated/res/generated/release" />
+    </dataSet>
+    <dataSet config="release" >
+        <source path="/Users/tinyao/Workspace/Android/StudioProject/Wowo/extras/FadingActionBarLib/src/release/res" />
+    </dataSet>
+
+</merger>

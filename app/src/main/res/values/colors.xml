@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="vpi__background_holo_dark">#ff000000</color>
+    <color name="vpi__background_holo_light">#fff3f3f3</color>
+    <color name="vpi__bright_foreground_holo_dark">@color/vpi__background_holo_light</color>
+    <color name="vpi__bright_foreground_holo_light">@color/vpi__background_holo_dark</color>
+    <color name="vpi__bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
+    <color name="vpi__bright_foreground_disabled_holo_light">#ffb2b2b2</color>
+    <color name="vpi__bright_foreground_inverse_holo_dark">@color/vpi__bright_foreground_holo_light</color>
+    <color name="vpi__bright_foreground_inverse_holo_light">@color/vpi__bright_foreground_holo_dark</color>
+
+    <color name="mask_guidance_content">@color/action_bar_title</color>
+    <color name="action_bar_title">#ff282d32</color>
+    <color name="mask_guidance_bg">#cd000000</color>
+    <color name="edit_cursor">#333333</color>
+
+    <color name="text_light">#fff</color>
+    <color name="text_dark">#333</color>
+    <color name="text_light_hint">#55ffffff</color>
+    <color name="text_dark_hint">#55333333</color>
+
+    <color name="refreshbar_color">#6cc5fa</color>
+    <color name="comment_information_text">#ffb4b4b4</color>
+    <color name="edit_box_content">@android:color/black</color>
+    <color name="edit_box_content_hint">#ffa0a0a0</color>
+    <color name="divider">#ffe6e6e6</color>
+
+    <color name="color_hover">#55999999</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="body_text_1_inverse">#deffffff</color>
+    <color name="body_text_disabled">#44000000</color>
+    <color name="body_text_2_inverse">#8affffff</color>
+
+    <color name="theme_primary">#3f51b5</color>
+    <color name="theme_primary_dark">#303f9f</color>
+    <color name="theme_primary_light">#7986cb</color>
+    <color name="body_text_1">#de000000</color>
+
+    <color name="bc_1">#e51c23</color>
+    <color name="bc_2">#e91e63</color>
+    <color name="bc_3">#9c27b0</color>
+    <color name="bc_4">#673ab7</color>
+    <color name="bc_5">#3f51b5</color>
+    <color name="bc_6">#5677fc</color>
+    <color name="bc_7">#03a9f4</color>
+    <color name="bc_8">#00bcd4</color>
+    <color name="bc_9">#009688</color>
+    <color name="bc_10">#259b24</color>
+    <color name="bc_11">#ff9800</color>
+    <color name="bc_12">#795548</color>
+    <color name="bc_13">#607d8b</color>
+
+
+    <color name="action_bar_color">#396797</color>
+    <color name="action_bar_stack_color">#2d5278</color>
+
+    <color name="light_gray">#bbbbbb</color>
+    <color name="wowo_detail_reply_bg">#f3f3f3</color>
+
+</resources>

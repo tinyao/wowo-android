@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false">
+
+    <com.wowo.view.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/comment_avatar"
+        android:layout_width="@dimen/comment_item_avatar_size"
+        android:layout_height="@dimen/comment_item_avatar_size"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="8.0dip"
+        android:layout_marginTop="15.0dip"
+        android:src="@drawable/ic_default_avatar"
+        app:border_color="#00000000"
+        app:border_width="0dp" />
+
+    <RelativeLayout
+        android:id="@+id/comment_info_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/comment_avatar"
+        android:layout_alignTop="@id/comment_avatar"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/comment_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:includeFontPadding="false"
+            android:text="刚刚"
+            android:textColor="#ccc"
+            android:textSize="12sp" />
+
+        <ImageButton
+            android:id="@+id/comment_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_comment_reply"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:focusableInTouchMode="true"
+            android:focusable="false"
+            android:paddingTop="2dp"/>
+
+        <CheckBox
+            android:id="@+id/comment_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/ic_vote_up_check"
+            android:layout_toLeftOf="@id/comment_reply"
+            android:layout_marginRight="20dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text="124"
+            android:paddingLeft="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/like_color_selector"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+    <!--<RelativeLayout-->
+    <!--android:visibility="gone"-->
+    <!--android:id="@+id/comment_status"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:paddingBottom="10.0dip"-->
+    <!--android:paddingLeft="10.0dip"-->
+    <!--android:paddingRight="10.0dip"-->
+    <!--android:paddingTop="12.0dip">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/comment_like"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:onClick="clickOnLikeComment"-->
+    <!--android:src="@drawable/ic_comment_like_gray_big" />-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/failed"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:onClick="clickOnResendComment"-->
+    <!--android:visibility="gone"-->
+    <!--android:src="@drawable/ic_send_failed" />-->
+
+    <!--<ProgressBar-->
+    <!--android:id="@+id/sending"-->
+    <!--android:layout_width="28.0dip"-->
+    <!--android:layout_height="28.0dip"-->
+    <!--android:visibility="gone"-->
+    <!--android:layout_centerInParent="true" />-->
+    <!--</RelativeLayout>-->
+
+
+
+
+    <TextView
+        android:id="@+id/comment_quote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comment_info_lay"
+        android:layout_marginTop="10.0dip"
+        android:layout_toRightOf="@id/comment_avatar"
+        android:drawableLeft="@drawable/quote_vertical_line"
+        android:maxLines="2"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
+        android:textColor="#bbb"
+        android:visibility="gone"
+        android:textSize="15.0sp" />
+
+    <View
+        android:layout_width="2dip"
+        android:layout_height="fill_parent"
+        android:background="@color/light_gray"
+        android:alpha="0.5"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:layout_toLeftOf="@id/comment_quote"
+        android:layout_alignTop="@id/comment_quote"
+        android:layout_alignBottom="@id/comment_quote"
+        />
+
+    <TextView
+        android:id="@+id/comment_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comment_quote"
+        android:layout_marginTop="10.0dip"
+        android:layout_toRightOf="@id/comment_avatar"
+        android:paddingRight="8dp"
+        android:paddingBottom="20dp"
+        android:textColor="@color/text_dark"
+        android:text="不认识，他估计去拍第六季去了=="
+        android:textSize="15.0sp" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:layout_alignLeft="@id/comment_info_lay"
+        android:layout_below="@id/comment_text"
+        android:background="?android:listDivider" />
+
+</RelativeLayout>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="templates_s">
+        <item>@drawable/s_1</item>
+        <item>@drawable/s_2</item>
+        <item>@drawable/s_3</item>
+        <item>@drawable/s_4</item>
+        <item>@drawable/s_5</item>
+        <item>@drawable/s_6</item>
+        <item>@drawable/s_7</item>
+        <item>@drawable/s_8</item>
+        <item>@drawable/s_9</item>
+        <item>@drawable/s_10</item>
+        <item>@drawable/s_11</item>
+        <item>@drawable/s_12</item>
+        <item>@drawable/s_13</item>
+        <item>@drawable/s_14</item>
+        <item>@drawable/s_15</item>
+        <item>@drawable/s_16</item>
+        <item>@drawable/s_17</item>
+        <item>@drawable/s_18</item>
+        <item>@drawable/s_19</item>
+        <item>@drawable/s_20</item>
+        <item>@drawable/s_21</item>
+        <item>@drawable/s_22</item>
+        <item>@drawable/s_23</item>
+        <item>@drawable/s_24</item>
+        <item>@drawable/s_25</item>
+        <item>@drawable/s_26</item>
+        <item>@drawable/s_27</item>
+        <item>@drawable/s_28</item>
+        <item>@drawable/s_29</item>
+        <item>@drawable/s_30</item>
+    </array>
+
+    <array name="templates_l">
+        <item>@drawable/l_1</item>
+        <item>@drawable/l_2</item>
+        <item>@drawable/l_3</item>
+        <item>@drawable/l_4</item>
+        <item>@drawable/l_5</item>
+        <item>@drawable/l_6</item>
+        <item>@drawable/l_7</item>
+        <item>@drawable/l_8</item>
+        <item>@drawable/l_9</item>
+        <item>@drawable/l_10</item>
+        <item>@drawable/l_11</item>
+        <item>@drawable/l_12</item>
+        <item>@drawable/l_13</item>
+        <item>@drawable/l_14</item>
+        <item>@drawable/l_15</item>
+        <item>@drawable/l_16</item>
+        <item>@drawable/l_17</item>
+        <item>@drawable/l_18</item>
+        <item>@drawable/l_19</item>
+        <item>@drawable/l_20</item>
+        <item>@drawable/l_21</item>
+        <item>@drawable/l_22</item>
+        <item>@drawable/l_23</item>
+        <item>@drawable/l_24</item>
+        <item>@drawable/l_25</item>
+        <item>@drawable/l_26</item>
+        <item>@drawable/l_27</item>
+        <item>@drawable/l_28</item>
+        <item>@drawable/l_29</item>
+        <item>@drawable/l_30</item>
+    </array>
+
+    <array name="colors_l">
+        <item>@color/bc_1</item>
+        <item>@color/bc_2</item>
+        <item>@color/bc_3</item>
+        <item>@color/bc_4</item>
+        <item>@color/bc_5</item>
+        <item>@color/bc_6</item>
+        <item>@color/bc_7</item>
+        <item>@color/bc_8</item>
+        <item>@color/bc_9</item>
+        <item>@color/bc_10</item>
+        <item>@color/bc_11</item>
+        <item>@color/bc_12</item>
+        <item>@color/bc_13</item>
+    </array>
+
+    <string-array name="ask_text">
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+        <item>你们有什么想问的</item>
+    </string-array>
+
+
+
+</resources>

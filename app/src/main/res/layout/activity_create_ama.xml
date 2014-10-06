@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/ama_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ama_image"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/l_1"
+            android:scaleType="centerCrop" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ama_image"
+            android:layout_alignTop="@id/ama_image"
+            android:layout_centerVertical="true">
+
+            <EditText
+                android:id="@+id/ama_content_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="***"
+                android:padding="30dp"
+                android:textColor="@color/text_dark"
+                android:textColorHint="@color/text_dark_hint"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/ama_content_me"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_above="@id/ama_content_title"
+                android:gravity="center"
+                android:text="我"
+                android:textColor="@color/text_dark"
+                android:textSize="25sp" />
+
+            <!--<android.support.v4.view.ViewPager-->
+                <!--android:id="@+id/ama_content_ask_pager"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <TextView
+                android:id="@+id/ama_content_ask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ama_content_title"
+                android:gravity="center"
+                android:text="你们有什么想问的"
+                android:textColor="@color/text_dark"
+                android:textSize="25sp" />
+
+        </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/color_opt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ama_image"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:button="@drawable/add_colorbg_light_selector"
+            android:checked="false"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/image_opt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ama_image"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/add_photo_light_selector"
+            android:checked="false"
+            android:clickable="true" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_alignBottom="@id/ama_image"
+                android:background="#dddddd"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/template_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@id/ama_panel">
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/template_pager"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <org.goodev.helpviewpager.CirclePageIndicator
+            android:id="@+id/template_indicator"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/template_pager"
+            android:layout_marginBottom="8dp"
+            app:fillColor="#999"
+            app:radius="3dp"
+            app:strokeColor="#999"
+            app:strokeWidth="1px" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

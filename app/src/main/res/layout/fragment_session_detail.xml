@@ -1,0 +1,183 @@
+<!--
+  Copyright 2014 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<com.wowo.view.ObservableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:fillViewport="true"
+    android:overScrollMode="never">
+
+    <FrameLayout
+        android:id="@+id/scroll_view_child"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false">
+
+        <!-- Background photo -->
+        <FrameLayout
+            android:id="@+id/session_photo_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="@drawable/photo_banner_scrim">
+
+            <ImageView
+                android:id="@+id/session_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/testpic"
+                android:scaleType="centerCrop" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/details_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/session_details_extra_space_bottom"
+            android:paddingRight="@dimen/keyline_1"
+            android:paddingTop="16dp">
+
+
+            <TextView
+                android:id="@+id/session_abstract"
+                style="@style/TextBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Developer are finding great success 翻翻看看那些作家笔下的秋天 1.读书，写信，浓浓的诗意 谁此时没有房子，就不必建造， 谁此时孤独，就永远孤独， 就醒来，读书，写长长的信， 在林荫路上不停地 徘徊，落叶纷飞。 ——里尔克...我记得你最后那个秋季的模样。
+你头戴贝雷帽，心里一片平静。
+你的眼里跳动着晚霞的火焰。
+树叶一片片落入你那似水的心田。
+你像一朵牵牛花紧贴在我怀中，
+树叶接收着你缓慢而平静的声音。
+惊愕的篝火燃烧著我的饥渴。
+甜蜜的蓝色堇盘绕在我的心田。
+我发觉你的眼睛在出神，可秋天已经远去
+灰色的贝雷帽，小鸟般的声音，家中的心脏，
+我深切的渴望就是移居你的家中
+我那快乐的亲吻会像火炭般地纷纷落下。
+从船上看是天空，从山上看是田野。
+忆起你，就想到了光明，炊烟，宁静的水塘！
+在你的眼底深处燃烧着万道霞光。
+秋天的枯叶盘旋飞绕在你的心田。"
+                android:layout_marginLeft="@dimen/keyline_2_session_detail" />
+
+            <LinearLayout
+                android:id="@+id/session_speakers_block"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/element_spacing_normal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/session_speakers_header"
+                    style="@style/SessionDetailSectionHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/keyline_2_session_detail"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="发言人" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@android:id/empty"
+                style="@style/EmptyText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/keyline_2_session_detail"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="空Session"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <!-- Title/subtitle bar (floating; position determined at run time as the content view scrolls) -->
+        <FrameLayout
+            android:id="@+id/header_session"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <!-- height assigned dynamically -->
+            <View
+                android:id="@+id/header_background"
+                android:layout_width="match_parent"
+                android:layout_height="3dp" />
+
+            <LinearLayout
+                android:id="@+id/header_session_contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp"
+                android:paddingLeft="@dimen/keyline_2_session_detail"
+                android:paddingRight="@dimen/keyline_1"
+                android:paddingTop="16dp">
+
+                <!-- Session title -->
+                <TextView
+                    android:id="@+id/session_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@string/font_fontFamily_medium"
+                    android:lineSpacingMultiplier="1.1"
+                    android:maxLines="4"
+                    android:text="Make Money on Google Play"
+                    android:textAlignment="viewStart"
+                    android:layout_gravity="start"
+                    android:textColor="@color/body_text_1_inverse"
+                    android:textSize="@dimen/text_size_large"
+                    android:textStyle="bold"/>
+
+                <!-- Session subtitle -->
+                <TextView
+                    android:id="@+id/session_subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="周三 13:00-14:45 在Room 4"
+                    android:textAlignment="viewStart"
+                    android:layout_gravity="start"
+                    android:textColor="@color/body_text_2_inverse"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/header_shadow"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="-6dp"
+                android:background="@drawable/bottom_shadow" />
+
+        </FrameLayout>
+
+        <!-- FAB -->
+        <include layout="@layout/include_add_schedule_fab" />
+
+    </FrameLayout>
+
+</com.wowo.view.ObservableScrollView>

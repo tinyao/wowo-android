@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ama_image"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_bg"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/ama_content_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:text="Hello"
+        android:textColor="#fff"
+        android:padding="30dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ama_image">
+
+        <TextView
+            android:id="@+id/comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:paddingRight="20.0dip"
+            android:paddingLeft="@dimen/secret_information_item_spacing"
+            android:text="12"
+            android:textColor="#fff"
+            android:textSize="@dimen/secret_information_text" />
+
+        <ImageView
+            android:id="@+id/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/comment_count"
+            android:contentDescription="@null"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_card_comment" />
+
+        <TextView
+            android:id="@+id/like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/comment"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/secret_information_item_spacing"
+            android:paddingRight="@dimen/secret_icon_left_spacing"
+            android:textColor="#fff"
+            android:text="25"
+            android:textSize="@dimen/secret_information_text" />
+
+        <CheckBox
+            android:id="@+id/like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/like_count"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:button="@drawable/ic_like_check" />
+
+    </RelativeLayout>
+
+    <ViewStub
+        android:id="@+id/stub"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout="@layout/mask_guidance" />
+
+</RelativeLayout>

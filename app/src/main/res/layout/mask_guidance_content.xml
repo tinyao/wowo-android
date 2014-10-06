@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/indicator"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:background="@drawable/tip_guidance_bg"
+        android:onClick="clickOnCloseGuidance"
+        android:padding="12.0dip">
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:paddingRight="13.0dip"
+            android:textColor="@color/mask_guidance_content"
+            android:textSize="14.599976sp" />
+
+        <View
+            android:layout_width="1.0px"
+            android:layout_height="fill_parent"
+            android:background="@color/mask_guidance_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:paddingLeft="10.0dip"
+            android:text="@string/guidance_close"
+            android:textColor="@color/mask_guidance_content"
+            android:textSize="14.599976sp" />
+    </LinearLayout>
+</merge>

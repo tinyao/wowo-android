@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:layout_weight="1.0"
+        android:drawSelectorOnTop="true"
+        android:listSelector="#00000000" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/wowo_reply_top_gradient"
+        />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/wowo_detail_reply_bg"
+        android:gravity="bottom">
+
+        <EditText
+            android:id="@+id/edit_box"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="2.5dip"
+            android:layout_marginLeft="8.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/edit_text_holo_light"
+            android:inputType="textMultiLine"
+            android:maxLines="5"
+            android:padding="9.0dip"
+            android:scrollbars="vertical"
+            android:textColor="@color/edit_box_content"
+            android:textColorHint="@color/edit_box_content_hint"
+            android:textSize="16.5sp" />
+
+        <ImageButton
+            android:id="@+id/send"
+            android:layout_width="70.0dip"
+            android:layout_height="47.0dip"
+            android:background="@drawable/ic_send_btn_bg"
+            android:contentDescription="@null"
+            android:onClick="clickOnSend"
+            android:saveEnabled="false"
+            android:src="@drawable/ic_send_btn" />
+    </LinearLayout>
+
+</LinearLayout>

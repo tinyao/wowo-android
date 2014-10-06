@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/extras/ActionBar-PullToRefresh/ActionBar-PullToRefresh.iml" filepath="$PROJECT_DIR$/extras/ActionBar-PullToRefresh/ActionBar-PullToRefresh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/extras/FadingActionBarLib/FadingActionBarLib.iml" filepath="$PROJECT_DIR$/extras/FadingActionBarLib/FadingActionBarLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Wowo.iml" filepath="$PROJECT_DIR$/Wowo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>
+
