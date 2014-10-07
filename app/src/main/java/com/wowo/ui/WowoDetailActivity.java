@@ -1,6 +1,7 @@
 package com.wowo.ui;
 
 import android.app.ProgressDialog;
+import android.app.Service;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,7 +52,7 @@ import java.util.List;
 /**
  * Created by tinyao on 9/19/14.
  */
-public class WowoDetailActivity extends BaseActivity implements AdapterView.OnItemClickListener{
+public class WowoDetailActivity extends BaseActivity implements AdapterView.OnItemClickListener, CommentAdapter.OnReplyClickListener{
 
     ListView commentsListV;
     HashMap<String, Object> woMap;
@@ -80,7 +81,6 @@ public class WowoDetailActivity extends BaseActivity implements AdapterView.OnIt
         helper.initActionBar(this);
 
         ImageView imageV = (ImageView) findViewById(R.id.image_header);
-
         TextView titleV = (TextView) findViewById(R.id.wowo_content_title);
         View photoMask = findViewById(R.id.wowo_photo_mask);
         TextView metaV = (TextView) findViewById(R.id.wowo_meta);
@@ -103,15 +103,15 @@ public class WowoDetailActivity extends BaseActivity implements AdapterView.OnIt
         }
 
         commentsListV = (ListView) findViewById(android.R.id.list);
-
-        commentsListV.setAdapter(adapter = new CommentAdapter(WowoDetailActivity.this, commentArray));
+        commentsListV.setAdapter(adapter = new CommentAdapter(WowoDetailActivity.this, commentArray, this));
 
         View bodyView = getLayoutInflater().inflate(R.layout.wowo_body, null, false);
         commentsListV.addHeaderView(bodyView);
-
-        registerForContextMenu(commentsListV);
+        TextView bodyV = (TextView) findViewById(R.id.wowo_detail_body);
+        bodyV.setText((String)woMap.get("body"));
 
         commentsListV.setOnItemClickListener(this);
+        registerForContextMenu(commentsListV);
 
 //        WowoApi.questions(Wowo.createWithoutData("Wowo", (String) woMap.get("objectId")), new FindCallback<Comment>() {
 //            @Override
@@ -158,7 +158,7 @@ public class WowoDetailActivity extends BaseActivity implements AdapterView.OnIt
                     public void done(List<Comment> comments, AVException e) {
                         if (e == null) {
                             commentArray = comments;
-                            adapter = new CommentAdapter(WowoDetailActivity.this, comments);
+                            adapter = new CommentAdapter(WowoDetailActivity.this, commentArray, WowoDetailActivity.this);
                             commentsListV.setAdapter(adapter);
                             Log.d("DEBUG", "Comments: " + comments.size());
                         } else {
@@ -282,15 +282,21 @@ public class WowoDetailActivity extends BaseActivity implements AdapterView.OnIt
             case R.id.comment_popmenu_reply:
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
                 Log.d("DEBUG", "removing item pos=" + (info.position-2));
-                Toast.makeText(getApplicationContext(), "position: " + (info.position-2) + "  " + adapter.getItem((info.position-2)).getBody(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "position: " + (info.position-2) + "  " + adapter.getItem((info.position-2)).getBody(), Toast.LENGTH_SHORT).show();
                 Comment comm = adapter.getItem(info.position-2);
                 bodyEdt.setHint("回复: " + comm.getBody());
                 replyQuote = comm.getBody();
-                bodyEdt.requestFocus();
+                showKeyboard();
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    private void showKeyboard() {
+        bodyEdt.requestFocus();
+        InputMethodManager imm = (InputMethodManager)this.getSystemService(Service.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(bodyEdt, 0);
     }
 
     @Override
@@ -306,4 +312,10 @@ public class WowoDetailActivity extends BaseActivity implements AdapterView.OnIt
     private void commentShare() {
     }
 
+    @Override
+    public void onReplyClick(Comment item) {
+        bodyEdt.setHint("回复: " + item.getBody());
+        replyQuote = item.getBody();
+        showKeyboard();
+    }
 }

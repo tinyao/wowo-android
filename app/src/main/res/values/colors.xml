@@ -59,4 +59,7 @@
     <color name="light_gray">#bbbbbb</color>
     <color name="wowo_detail_reply_bg">#f3f3f3</color>
 
+    <color name="light_light_gray">#eaeaea</color>
+    <color name="draw_item_activated_color">#dddddd</color>
+
 </resources>

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.location.Location;
 import android.util.Log;
 
 import com.avos.avoscloud.AVOSCloud;
@@ -27,6 +28,8 @@ public class WoApplication extends Application {
     private static SharedPreferences sharedPreferences;
 
     private static Context sContext;
+
+    private static Location mLocation;
 
     @Override
     public void onCreate() {

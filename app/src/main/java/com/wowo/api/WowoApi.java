@@ -1,5 +1,7 @@
 package com.wowo.api;
 
+import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Environment;
 import android.util.Log;
 
@@ -17,6 +19,7 @@ import com.wowo.model.Category;
 import com.wowo.model.Wowo;
 import com.wowo.model.Comment;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +36,8 @@ public class WowoApi {
      *
      * @param mCallback
      */
-    public static void latestWowo(Category mCategory, FindCallback<Wowo> mCallback, boolean fromCache) {
+    public static void latestWowo(Category mCategory, Location location,
+                                  FindCallback<Wowo> mCallback, boolean fromCache) {
 
 //        AVQuery<Wowo> notNearby = AVQuery.getQuery("Wowo");
 //        lotsOfWins.whereGreaterThan("score", 150);
@@ -47,29 +51,33 @@ public class WowoApi {
 //
 //        AVQuery<AVObject> mainQuery = AVQuery.or(queries);
 
+        Log.d("REQUEST LATEST WOWOS: ", "Category=" + mCategory.ordinal()
+                + "Location=(" + location.getLatitude() + "," + location.getLongitude() + ")");
 
         AVQuery<Wowo> mainQuery = null;
 
         if (mCategory == Category.nearby) { //  附近
             mainQuery = new AVQuery<Wowo>("Wowo");
-            AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
-            mainQuery.whereWithinKilometers("location", centerPoint, 10);
+            if(location != null) {
+                AVGeoPoint centerPoint = new AVGeoPoint(location.getLatitude(), location.getLongitude());
+                mainQuery.whereWithinKilometers("location", centerPoint, 10);
+            }
         } else {
             // 非仅对附近可见
-            AVQuery<Wowo> notOnlyNearby = AVQuery.getQuery("Wowo");
-            notOnlyNearby.whereEqualTo("nearbyOnly", false);
-            // 附近的
-//            AVQuery<Wowo> nearbyQuery = AVQuery.getQuery("Wowo");
-//            AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
-//            nearbyQuery.whereWithinKilometers("location", centerPoint, 10);
-
-            List<AVQuery<Wowo>> queries = new ArrayList<AVQuery<Wowo>>();
-            queries.add(notOnlyNearby);
-//            queries.add(nearbyQuery);
-
-            mainQuery = AVQuery.or(queries);
-//            mainQuery = new AVQuery<Wowo>("Wowo");
-//            mainQuery.whereEqualTo("nearbyOnly", false);
+//            AVQuery<Wowo> notOnlyNearby = AVQuery.getQuery("Wowo");
+//            notOnlyNearby.whereEqualTo("nearbyOnly", false);
+//            // 附近的
+////            AVQuery<Wowo> nearbyQuery = AVQuery.getQuery("Wowo");
+////            AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
+////            nearbyQuery.whereWithinKilometers("location", centerPoint, 10);
+//
+//            List<AVQuery<Wowo>> queries = new ArrayList<AVQuery<Wowo>>();
+//            queries.add(notOnlyNearby);
+////            queries.add(nearbyQuery);
+//
+//            mainQuery = AVQuery.or(queries);
+            mainQuery = new AVQuery<Wowo>("Wowo");
+            mainQuery.whereEqualTo("nearbyOnly", false);
 
             if (mCategory.ordinal() != 0) { // 非全部
                 mainQuery.whereEqualTo("category", mCategory.ordinal());
@@ -112,32 +120,36 @@ public class WowoApi {
      * @param startWowo
      * @param mCallback
      */
-    public static void nextWowo(Wowo startWowo, Category mCategory, FindCallback<Wowo> mCallback) {
+    public static void nextWowo(Wowo startWowo, Category mCategory, Location location, FindCallback<Wowo> mCallback) {
 
+        Log.d("REQUEST LATEST WOWOS: ", "Category=" + mCategory.ordinal()
+                + "Location=(" + location.getLatitude() + "," + location.getLongitude() + ")");
 
         AVQuery<Wowo> mainQuery = null;
 
         if (mCategory == Category.nearby) { //  附近
             mainQuery = new AVQuery<Wowo>("Wowo");
-            AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
-            mainQuery.whereWithinKilometers("location", centerPoint, 10);
+            if(location != null) {
+                AVGeoPoint centerPoint = new AVGeoPoint(location.getLatitude(), location.getLongitude());
+                mainQuery.whereWithinKilometers("location", centerPoint, 10);
+            }
         } else {
             // 非仅对附近可见
-            AVQuery<Wowo> notOnlyNearby = AVQuery.getQuery("Wowo");
-            notOnlyNearby.whereEqualTo("nearbyOnly", false);
-            // 附近的
-//            AVQuery<Wowo> nearbyQuery = AVQuery.getQuery("Wowo");
-//            AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
-//            nearbyQuery.whereWithinKilometers("location", centerPoint, 10);
-
-            List<AVQuery<Wowo>> queries = new ArrayList<AVQuery<Wowo>>();
-            queries.add(notOnlyNearby);
-//            queries.add(nearbyQuery);
-
-            mainQuery = AVQuery.or(queries);
+//            AVQuery<Wowo> notOnlyNearby = AVQuery.getQuery("Wowo");
+//            notOnlyNearby.whereEqualTo("nearbyOnly", false);
+//            // 附近的
+////            AVQuery<Wowo> nearbyQuery = AVQuery.getQuery("Wowo");
+////            AVGeoPoint centerPoint = new AVGeoPoint(40, 130.02);
+////            nearbyQuery.whereWithinKilometers("location", centerPoint, 10);
 //
-//            mainQuery = new AVQuery<Wowo>("Wowo");
-//            mainQuery.whereEqualTo("nearbyOnly", false);
+//            List<AVQuery<Wowo>> queries = new ArrayList<AVQuery<Wowo>>();
+//            queries.add(notOnlyNearby);
+////            queries.add(nearbyQuery);
+//
+//            mainQuery = AVQuery.or(queries);
+//
+            mainQuery = new AVQuery<Wowo>("Wowo");
+            mainQuery.whereEqualTo("nearbyOnly", false);
 
             if (mCategory.ordinal() != 0) { // 非全部
                 mainQuery.whereEqualTo("category", mCategory.ordinal());
@@ -161,39 +173,45 @@ public class WowoApi {
         mainQuery.findInBackground(mCallback);
     }
 
-    public static void publishWowo(String text, String imagePath,
-                                   String body, int categoryId,
-                                   double latitude, double longtitue,
+    public static void publishWowo(String text, String body,
+                                   Bitmap bitmap, int colorId,
+                                   int categoryId,
+                                   boolean nearbyOnly,
+                                   Location location,
                                    final SaveCallback mSaveCallback) {
         final Wowo wowo = new Wowo();
         AVUser currentUser = AVUser.getCurrentUser();
         wowo.setAuthor(currentUser);
         wowo.setTitle(text);
+        wowo.setCategory(categoryId);
+        wowo.setBody(body);
+        wowo.setColorId(colorId);
+        wowo.setNearybyOnly(nearbyOnly);
 
-        AVGeoPoint point = new AVGeoPoint(latitude, longtitue);
-        wowo.setLocation(point);
+        if(location != null){
+            AVGeoPoint point = new AVGeoPoint(location.getLatitude(), location.getLongitude());
+            wowo.setLocation(point);
+        }
 
-        if (imagePath == null) {
+        if (bitmap == null) {
             wowo.saveInBackground(mSaveCallback);
         } else {
 
-            try {
-                final AVFile imageFile = AVFile.withAbsoluteLocalPath("test.jpg",
-                        Environment.getExternalStorageDirectory() + "/test.jpg");
-                imageFile.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(AVException e) {
-                        if (e == null) {
-                            wowo.put("image", imageFile);
-                            wowo.saveInBackground(mSaveCallback);
-                        } else {
-                            mSaveCallback.done(new AVException(-1000, "图片上传失败"));
-                        }
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+            byte[] byteArray = stream.toByteArray();
+            final AVFile avFile = new AVFile("wowo_bg", byteArray);
+            avFile.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(AVException e) {
+                    if (e == null) {
+                        wowo.put("photo", avFile);
+                        wowo.saveInBackground(mSaveCallback);
+                    } else {
+                        mSaveCallback.done(new AVException(-1000, "图片上传失败"));
                     }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                }
+            });
 
         }
     }

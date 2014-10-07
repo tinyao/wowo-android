@@ -3,6 +3,7 @@ package com.wowo.adapter;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -64,7 +65,9 @@ public class WowoAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
 
+        final Wowo post = wowos.get(position);
         final ViewHolder holder;
+
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.card_wowo_base, viewGroup, false);
@@ -73,6 +76,7 @@ public class WowoAdapter extends BaseAdapter {
             holder.metaTextV = (TextView) convertView.findViewById(R.id.wowo_meta);
             holder.likeButton = (CheckBox) convertView.findViewById(R.id.wowo_like);
             holder.photoMask = convertView.findViewById(R.id.wowo_photo_mask);
+
             convertView.setTag(holder);
             convertView.setTag(R.id.wowo_like, holder.likeButton);
         } else {
@@ -81,7 +85,6 @@ public class WowoAdapter extends BaseAdapter {
 
         holder.likeButton.setTag(position); // This line is important.
 
-        final Wowo post = wowos.get(position);
 
         holder.titleView.setText(post.getTitle());
         holder.metaTextV.setText(post.getCategoryName() + ", " + TimeUtils.getTimeAgo(post.getCreatedAt()));
@@ -99,17 +102,18 @@ public class WowoAdapter extends BaseAdapter {
 
         Log.d("DEBUG", "photo:" + post.getPhotoUrl());
 
-        if (post.getPhotoUrl() == null || post.getPhotoUrl().equals("")) {
-            holder.imgView.setBackgroundResource(post.getColor());
-            holder.photoMask.setVisibility(View.INVISIBLE);
-        } else {
+        if (post.getPhotoUrl() != null && !post.getPhotoUrl().equals("")) {
             Picasso.with(mContext)
                     .load(post.getPhotoUrl())
                     .placeholder(R.drawable.card_gradient_bg)
                     .error(R.drawable.card_gradient_bg)
                     .into(holder.imgView);
             holder.photoMask.setVisibility(View.VISIBLE);
+        } else {
+            holder.imgView.setImageResource(post.getColor());
+            holder.photoMask.setVisibility(View.INVISIBLE);
         }
+
 
 //        AVRelation<AVUser> relation = post.getRelation("likes");
 //        relation.getQuery().whereEqualTo("objectId", AVUser.getCurrentUser().getObjectId()).findInBackground(new FindCallback<AVUser>() {
@@ -156,6 +160,7 @@ public class WowoAdapter extends BaseAdapter {
 
     public class ViewHolder {
         RoundedImageView imgView;
+        RoundedImageView colorView;
         TextView titleView;
         CheckBox likeButton;
         TextView metaTextV;

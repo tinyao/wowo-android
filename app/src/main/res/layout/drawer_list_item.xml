@@ -20,8 +20,11 @@
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
     android:gravity="center_vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:textColor="#fff"
-    android:background="?android:attr/activatedBackgroundIndicator"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:textColor="@color/text_dark"
+    android:background="@drawable/wo_category_select_bg"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+
+
+    <!--android:background="?android:attr/activatedBackgroundIndicator"-->

@@ -46,7 +46,7 @@
             android:paddingBottom="5dp"
             android:textColor="#fff"
             android:textColorHint="#fff"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/wowo_create_title_end"
@@ -59,48 +59,52 @@
             android:layout_marginTop="15dp"
             android:text="有什么想问的 ?"
             android:textColor="#eee"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
-        <CheckBox
-            android:id="@+id/color_opt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:visibility="gone"
-            android:button="@drawable/add_colorbg_light_selector"
-            android:checked="false"
-            android:clickable="true" />
 
-        <ImageView
-            android:id="@+id/image_opt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/add_photo_selector"
-            android:checked="false"
-            android:clickable="true" />
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/wowo_create_body_edt"
+
+    <include layout="@layout/divider_view"/>
+
+    <LinearLayout
+        android:id="@+id/wowo_create_option_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:layout_alignParentBottom="true"
-        android:background="@null"
-        android:gravity="top"
-        android:minLines="5"
-        android:hint="具体写点什么吧" />
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_below="@id/wowo_photo_lay">
+
+        <ImageView
+            android:id="@+id/wowo_image_opt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:background="@drawable/wo_create_option_color_bg"
+            android:src="@drawable/ic_camera" />
+
+        <View
+            android:layout_width="1.0dp"
+            android:layout_height="match_parent"
+            android:background="@color/divider"/>
+
+        <ImageView
+            android:id="@+id/wowo_color_opt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_shuffle"
+            android:background="@drawable/wo_create_option_color_bg"
+            android:clickable="true" />
+
+
+    </LinearLayout>
 
 
     <include layout="@layout/divider_view"/>
@@ -112,12 +116,13 @@
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/wo_create_option_color_bg"
         android:layout_below="@id/wowo_photo_lay">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_vote_normal"
+            android:src="@drawable/sns_shoot_share_normal"
             android:scaleType="centerInside"/>
 
         <TextView
@@ -148,12 +153,13 @@
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/wo_create_option_color_bg"
         android:layout_below="@id/wowo_photo_lay">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_vote_normal"
+            android:src="@drawable/sns_shoot_location_normal"
             android:scaleType="centerInside"/>
 
         <TextView
@@ -175,8 +181,22 @@
 
     <include layout="@layout/divider_view"/>
 
-
-
+    <EditText
+        android:id="@+id/wowo_create_body_edt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_alignParentBottom="true"
+        android:background="@null"
+        android:textSize="16sp"
+        android:gravity="top"
+        android:minLines="5"
+        android:textColor="@color/text_dark"
+        android:textColorHint="@color/light_gray"
+        android:hint="具体写点什么吧" />
 
 </LinearLayout>
 

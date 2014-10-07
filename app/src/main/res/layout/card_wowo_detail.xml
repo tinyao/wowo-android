@@ -31,7 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingLeft="3dp"
             android:text="旅行, 9小时前"
             android:textColor="#ccc" />
 
@@ -41,7 +40,7 @@
             android:layout_height="wrap_content"
             android:button="@drawable/ic_vote_up_check"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="8dp"
             android:focusable="false"
             android:text="124"
             android:textSize="12sp"

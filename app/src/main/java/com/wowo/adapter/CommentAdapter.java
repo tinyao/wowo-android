@@ -38,12 +38,14 @@ public class CommentAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
 
     SparseBooleanArray mCheckStates;
+    OnReplyClickListener replyClickListener;
 
-    public CommentAdapter(Context context, List<Comment> comments) {
+    public CommentAdapter(Context context, List<Comment> comments, OnReplyClickListener listener) {
         this.mContext = context;
         this.comments = comments;
         mInflater = LayoutInflater.from(context);
         mCheckStates = new SparseBooleanArray(comments.size());
+        replyClickListener = listener;
     }
 
     @Override
@@ -92,6 +94,13 @@ public class CommentAdapter extends BaseAdapter {
             public void onClick(View view) {
                 WowoApi.likeComment(comments.get(position), holder.likeButton.isChecked(), null);
                 holder.likeButton.setText("" + item.getVote());
+            }
+        });
+
+        holder.replyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replyClickListener.onReplyClick(item);
             }
         });
 
@@ -165,5 +174,8 @@ public class CommentAdapter extends BaseAdapter {
 //        ImageView imgFailed;
     }
 
+    public interface OnReplyClickListener {
+        public void onReplyClick(Comment item);
+    }
 
 }

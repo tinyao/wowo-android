@@ -3,9 +3,13 @@ package com.wowo.ui;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -46,6 +50,10 @@ public class MainActivity extends BaseActivity implements WowosFragment.OnFragme
     private ActionBarDrawerToggle mDrawerToggle;
 
     private PullToRefreshAttacher mPullToRefreshAttacher;
+    private LocationManager locationManager;
+    private Location mLocation;
+
+    private final static String LOCATION_PROVIDER = LocationManager.NETWORK_PROVIDER;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +86,10 @@ public class MainActivity extends BaseActivity implements WowosFragment.OnFragme
         testObject.put("foo", "bar");
         testObject.saveInBackground();
 
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        mLocation = locationManager.getLastKnownLocation(LOCATION_PROVIDER);
+        locationManager.requestLocationUpdates(LOCATION_PROVIDER, 0, 0, locationListener);
+
         // update cached liked comments
         WowoApi.likedComments(new FindCallback<Comment>() {
             @Override
@@ -93,7 +105,25 @@ public class MainActivity extends BaseActivity implements WowosFragment.OnFragme
                 Wowo.updateCachedLikedWowos(wowos);
             }
         });
+
     }
+
+    // Define a listener that responds to location updates
+    LocationListener locationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            // Called when a new location is found by the network location provider.
+            mLocation = location;
+            // Remove the listener you previously added
+            locationManager.removeUpdates(locationListener);
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+        public void onProviderEnabled(String provider) {}
+
+        public void onProviderDisabled(String provider) {}
+    };
+
 
     private void setupDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -185,6 +215,10 @@ public class MainActivity extends BaseActivity implements WowosFragment.OnFragme
 
     public PullToRefreshAttacher getPullToRefreshAttacher() {
         return mPullToRefreshAttacher;
+    }
+
+    public Location getLocation() {
+        return mLocation;
     }
 
     @Override

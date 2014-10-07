@@ -5,8 +5,8 @@
     android:id="@+id/listView"
     android:layout_width="match_parent"
     android:choiceMode="singleChoice"
-    android:paddingTop="20dip"
     android:divider="@android:color/transparent"
     android:dividerHeight="0dp"
-    android:background="#e6000000"
+    android:background="#f5f5f5"
+    android:listSelector="@drawable/wo_category_select_bg"
     android:layout_height="match_parent"/>

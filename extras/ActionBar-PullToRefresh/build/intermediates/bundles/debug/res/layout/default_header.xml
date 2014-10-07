@@ -23,6 +23,7 @@
     <FrameLayout
         android:id="@id/ptr_content"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="48dp">
 
         <View
@@ -45,6 +46,7 @@
         android:id="@id/ptr_progress"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_marginTop="48dp"
         style="@style/Widget.PullToRefresh.ProgressBar.Horizontal.Center" />
 
 </LinearLayout>

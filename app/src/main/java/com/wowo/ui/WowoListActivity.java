@@ -58,7 +58,7 @@ public class WowoListActivity extends BaseActivity implements AdapterView.OnItem
         mListV.addFooterView(mLoadingFooter.getView());
 
         wowoArray = WoApplication.getAmaList();
-        WowoApi.latestWowo(null, new FindCallback<Wowo>() {
+        WowoApi.latestWowo(null, null, new FindCallback<Wowo>() {
             @Override
             public void done(List<Wowo> wowos, AVException e) {
                 if (e == null) {
@@ -105,7 +105,7 @@ public class WowoListActivity extends BaseActivity implements AdapterView.OnItem
     private void loadNextPage() {
         mLoadingFooter.setState(LoadingFooter.State.Loading);
         Log.d("DEBUG", "last: " + wowoArray.get(wowoArray.size()-1));
-        WowoApi.nextWowo(wowoArray.get(wowoArray.size()-1), null, new FindCallback<Wowo>() {
+        WowoApi.nextWowo(wowoArray.get(wowoArray.size()-1), null, null, new FindCallback<Wowo>() {
             @Override
             public void done(List<Wowo> wowos, AVException e) {
                 if (e == null) {

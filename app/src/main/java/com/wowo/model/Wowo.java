@@ -76,6 +76,14 @@ public class Wowo extends AVObject{
         return this.getInt("vote");
     }
 
+    public boolean isNearbyOnly() {
+        return this.getBoolean("nearbyOnly");
+    }
+
+    public void setNearybyOnly(boolean is) {
+        this.put("nearbyOnly", is);
+    }
+
     /**
      *
      * @return
@@ -169,6 +177,7 @@ public class Wowo extends AVObject{
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("objectId", this.getObjectId());
         map.put("text", this.getTitle());
+        map.put("body", this.getBody());
         map.put("color", this.getPhotoUrl()!=null ? R.color.action_bar_color : getColor());
         map.put("photoUrl", this.getPhotoUrl());
         map.put("author", this.getAuthor().getObjectId());

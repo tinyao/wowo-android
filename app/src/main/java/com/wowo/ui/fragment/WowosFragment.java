@@ -84,6 +84,7 @@ public class WowosFragment extends Fragment implements AdapterView.OnItemClickLi
                              Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.fragment_wowo, container, false);
         mListView = (ListView) contentView.findViewById(android.R.id.list);
+        mActivity = (MainActivity) getActivity();
 
         mPullToRefreshAttacher = ((MainActivity) getActivity()).getPullToRefreshAttacher();
         mPullToRefreshAttacher.setRefreshableView(mListView, this);
@@ -126,7 +127,7 @@ public class WowosFragment extends Fragment implements AdapterView.OnItemClickLi
     }
 
     private void loadData() {
-        WowoApi.latestWowo(mCategory, new FindCallback<Wowo>() {
+        WowoApi.latestWowo(mCategory, mActivity.getLocation(), new FindCallback<Wowo>() {
             @Override
             public void done(List<Wowo> wowos, AVException e) {
                 if (e == null) {
@@ -143,7 +144,7 @@ public class WowosFragment extends Fragment implements AdapterView.OnItemClickLi
 
     private void loadNextPage() {
         mLoadingFooter.setState(LoadingFooter.State.Loading);
-        WowoApi.nextWowo(wowoArray.get(wowoArray.size() - 1), mCategory, new FindCallback<Wowo>() {
+        WowoApi.nextWowo(wowoArray.get(wowoArray.size() - 1), mCategory, mActivity.getLocation(), new FindCallback<Wowo>() {
             @Override
             public void done(List<Wowo> wowos, AVException e) {
                 if (e == null) {
@@ -222,15 +223,15 @@ public class WowosFragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public void onRefreshStarted(View view) {
         mPullToRefreshAttacher.setRefreshing(true);
-        WowoApi.latestWowo(mCategory, new FindCallback<Wowo>() {
+        WowoApi.latestWowo(mCategory, mActivity.getLocation(), new FindCallback<Wowo>() {
             @Override
             public void done(List<Wowo> wowos, AVException e) {
                 if (e == null) {
                     Log.d("成功", "查询到" + wowos.size() + " 条符合条件的数据");
-                    if (wowos.contains(wowoArray.get(0))) {
-                        int index = wowos.indexOf(wowoArray.get(0));
-                        Toast.makeText(getActivity(), index + "条新消息", Toast.LENGTH_SHORT).show();
-                    }
+//                    if (wowos.contains(wowoArray.get(0))) {
+//                        int index = wowos.indexOf(wowoArray.get(0));
+//                        Toast.makeText(getActivity(), index + "条新消息", Toast.LENGTH_SHORT).show();
+//                    }
                     wowoArray.clear();
                     wowoArray.addAll(wowos);
                     adapter.notifyDataSetChanged();

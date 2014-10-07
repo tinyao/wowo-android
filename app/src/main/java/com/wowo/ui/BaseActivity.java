@@ -24,6 +24,12 @@ public class BaseActivity extends Activity{
     }
 
     @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.zoom_out_center);
+    }
+
+    @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.zoom_in_center, R.anim.slide_out_right);
@@ -35,4 +41,13 @@ public class BaseActivity extends Activity{
         overridePendingTransition(R.anim.zoom_in_center, R.anim.slide_out_right);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
